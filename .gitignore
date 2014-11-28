@@ -1,0 +1,9 @@
+*.suo
+*.sdf
+*.fdb
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.log
+*.lastbuildstate
+Gen/

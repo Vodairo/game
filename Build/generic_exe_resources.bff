@@ -1,0 +1,35 @@
+//--------------------------------------------------------------------------
+// Generic Project compilation with resources
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------    
+
+#include "adjusted_configurations_aliases.bff"
+
+// Visual Studio Project Generation
+//--------------------------------------------------------------------------
+VCXProject('$ProjectName$-proj')
+{
+    .ProjectOutput          = '$ProjectPath$/$ProjectName$.vcxproj'
+    .ProjectInputPaths      = '$ProjectPath$'
+    .ProjectBasePath        = '$ProjectPath$'
+    .ProjectFileToExclude   = .ExcludeBoth
+
+    .LayoutDir              = '$ProjectPath$/Durango'
+    .ApplicationEnvironment = 'title'
+    .DefaultLanguage        = 'fr-fr'
+}
+
+ObjectList('$ProjectName$-Res')
+{
+    Using(.MSVCResourceCompiler)
+    .CompilerInputFiles     = '$ProjectPath$/$ResourceLocation$'
+    .CompilerOutputPath     = '$SolutionPath$/../../Gen/Intermediate/$SolutionName$/Resources/$ProjectName$/'
+}
+
+
+// All
+//--------------------------------------------------------------------------
+Alias('$ProjectName$')
+{
+    .Targets = { '$ProjectName$-proj' }
+}

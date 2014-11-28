@@ -1,0 +1,46 @@
+//--------------------------------------------------------------------------
+// Allow Platforms and Configs specific properties for a single project
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------    
+
+.SpecificMSVCBaseConfig =
+[
+    .SpecificCompilerOptions    = ''
+    .SpecificLibrarianOptions   = ''
+    .SpecificLinkerOptions      = ''
+]
+
+// X86
+//------------------------------------------------------------------------------
+.SpecificX86BaseConfig = 
+[
+    Using(.SpecificMSVCBaseConfig)
+]
+.SpecificX86DebugConfig =
+[
+    Using(.X86DebugConfig)
+    Using(.SpecificX86BaseConfig)
+]
+.SpecificX86ReleaseConfig =
+[
+    Using(.X86ReleaseConfig)
+    Using(.SpecificX86BaseConfig)
+]
+
+
+// x64
+//------------------------------------------------------------------------------
+.SpecificX64BaseConfig =
+[
+    Using(.SpecificMSVCBaseConfig)
+]
+.SpecificX64DebugConfig =
+[
+    Using(.X64DebugConfig)
+    Using(.SpecificX64BaseConfig)
+]
+.SpecificX64ReleaseConfig =
+[
+    Using(.X64ReleaseConfig)
+    Using(.SpecificX64BaseConfig)
+]

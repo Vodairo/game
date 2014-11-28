@@ -1,0 +1,15 @@
+//--------------------------------------------------------------------------
+// Allow Platforms and Configs specific properties for a single project
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------    
+
+.SpecificConfigs            = { .SpecificX86DebugConfig,        .SpecificX86ReleaseConfig,
+                                .SpecificX64DebugConfig,        .SpecificX64ReleaseConfig }
+
+.SpecificConfigsWin         = { .SpecificX86DebugConfig,        .SpecificX86ReleaseConfig,
+                                .SpecificX64DebugConfig,        .SpecificX64ReleaseConfig }
+
+.SpecificConfigsX86         = { .SpecificX86DebugConfig,        .SpecificX86ReleaseConfig }
+
+.SpecificConfigsX64         = { .SpecificX64DebugConfig,        .SpecificX64ReleaseConfig }
+

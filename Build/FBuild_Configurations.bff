@@ -1,0 +1,246 @@
+//--------------------------------------------------------------------------
+// Generic Platforms and Configs
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------    
+
+Settings
+{
+    .CachePath  = "G:/.fbuild.cache"
+}
+
+//-------------------------------------------------------------------------------
+// Platforms
+//-------------------------------------------------------------------------------
+.VSBasePath             = "C:/Program Files (x86)/Microsoft Visual Studio 11.0"
+.WindowsSDKBasePath     = "C:/Program Files (x86)/Windows Kits/8.0"
+
+//------------------------------------------------------------------------------
+// Compilers
+//------------------------------------------------------------------------------
+Compiler('Compiler-x86')
+{
+    .Root       = '$VSBasePath$/VC/bin'
+    .Executable = '$Root$/cl.exe'
+    .ExtraFiles = { '$Root$/c1.dll',
+                    '$Root$/c1ast.dll',
+                    '$Root$/c1xx.dll',
+                    '$Root$/c1xxast.dll',
+                    '$Root$/c2.dll',
+                    '$Root$/1033/clui.dll',
+                    '$VSBasePath$/VC/redist/x86/Microsoft.VC110.CRT/msvcp110.dll',
+                    '$VSBasePath$/VC/redist/x86/Microsoft.VC110.CRT/msvcr110.dll',
+                    '$VSBasePath$/VC/redist/x86/Microsoft.VC110.CRT/vccorlib110.dll'
+                  }
+
+}
+
+Compiler('Compiler-x64')
+{
+    .Root       = '$VSBasePath$/VC/bin'
+    .Executable = '$Root$/amd64/cl.exe'
+    .ExtraFiles = { '$Root$/amd64/c1.dll',
+                    '$Root$/amd64/c1ast.dll',
+                    '$Root$/amd64/c1xx.dll',
+                    '$Root$/amd64/c1xxast.dll',
+                    '$Root$/amd64/c2.dll',
+                    '$Root$/amd64/1033/clui.dll',
+                    '$Root$/amd64/msobj110.dll',
+                    '$Root$/amd64/mspdb110.dll',
+                    '$Root$/amd64/mspdbsrv.exe',
+                    '$Root$/amd64/mspdbcore.dll',
+                    '$Root$/amd64/mspft110.dll',
+                    '$VSBasePath$/VC/redist/x64/Microsoft.VC110.CRT/msvcp110.dll',
+                    '$VSBasePath$/VC/redist/x64/Microsoft.VC110.CRT/msvcr110.dll',
+                    '$VSBasePath$/VC/redist/x64/Microsoft.VC110.CRT/vccorlib110.dll'
+                  }
+}
+
+//------------------------------------------------------------------------------
+// Configurations
+//------------------------------------------------------------------------------
+.MSVCBaseConfig =
+[
+    .CompilerOptions        = '/nologo /c /W3 /WX- /Zi /Gm- /errorReport:prompt /GS- /GF /Gd /openmp- /Oy- /EHsc /bigobj'
+                            + ' /Zc:forScope'
+                            + ' /Zc:wchar_t'
+                            + ' /fp:fast'
+                            + ' /D "_SECURE_SCL=0" /D "_ITERATOR_DEBUG_LEVEL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "STRSAFE_NO_DEPRECATE=1" /D "_CRT_SECURE_NO_DEPRECATE=1" /D "_CRT_NONSTDC_NO_DEPRECATE=1" /D "_LIB" /D "SIP_STATIC_MODULE" /D_WIN32 /D__WINDOWS__ /D CURL_STATICLIB /D STATICLIB'
+    .PCHOptions             = .CompilerOptions
+                            + ' /Fp"%2" /Fo"%3"'
+    .CompilerOptions        + ' /Fo"%2"'
+    .LibrarianOptions       = '/nologo /OUT:"%2" "%1" /SUBSYSTEM:WINDOWS'
+    .LinkerOptions          = '/nologo /MANIFEST /LARGEADDRESSAWARE /SUBSYSTEM:WINDOWS /ERRORREPORT:PROMPT /TLBID:1'
+                            + ' /IGNORE:4001'
+
+    // Optimizations
+    .CompilerDebugOptimizations     = ' /Od /D "_DEBUG" /MDd'
+    .CompilerReleaseOptimizations   = ' /O2 /D "NDEBUG" /MD /Oi /Ot'
+    .LibrarianDebugOptimizations    = ''
+    .LibrarianReleaseOptimizations  = ''
+    .LinkerDebugOptimizations       = ' /DEBUG'
+    .LinkerReleaseOptimizations     = ''
+
+    .BaseIncludePaths       = ' /I"$VSBasePath$/VC/include"'
+                            + ' /I"$SolutionPath$/External"'
+                            + ' /I"$SolutionPath$/Sources/CPP"'
+                            + ' /I"Headers"'
+    .CompilerOptions        + .BaseIncludePaths
+    .PCHOptions             + .BaseIncludePaths
+]
+
+// X86
+//------------------------------------------------------------------------------
+.X86BaseConfig =
+[
+    Using(.MSVCBaseConfig)
+    .ToolsBasePath          = '$VSBasePath$/VC/bin'
+    .Compiler               = 'Compiler-x86'
+    .Librarian              = '$ToolsBasePath$/lib.exe'
+    .Linker                 = '$ToolsBasePath$/link.exe'
+    .CompilerOptions        + ' /arch:SSE2 /GR /Oy-'
+                            + ' /D "WIN32"'
+    .PCHOptions             + ' /arch:SSE2'
+                            + ' /D "WIN32"'
+
+    .IncludePaths           = ' /I"$WindowsSDKBasePath$/Include/um"'
+                            + ' /I"$WindowsSDKBasePath$/Include/shared"'
+                            + ' /I"$WindowsSDKBasePath$/Include/winrt"'
+                            + ' /I"$WindowsSDKBasePath$/Include"'
+
+    .WindowsLibPath         = '$WindowsSDKBasePath$/Lib/win8/um'
+
+    .Platform               = 'Win32'
+    .LinkerOptions          + ' /MACHINE:X86 /MANIFESTUAC:"level=^'asInvoker^' uiAccess=^'false^'"'
+                            + ' /LIBPATH:"$WindowsLibPath$/x86"'
+                            + ' /LIBPATH:"$VSBasePath$/VC/lib"'
+                            + ' "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib"'
+                            + ' /SAFESEH'
+]
+.X86DebugConfig =
+[
+    Using(.X86BaseConfig)
+    .Config                 = 'Debug'
+    .CompilerOptions        + .CompilerDebugOptimizations
+                            + .IncludePaths
+    .PCHOptions             + .CompilerDebugOptimizations
+                            + .IncludePaths
+    .LibrarianOptions       + .LibrarianDebugOptimizations
+    .LinkerOptions          + .LinkerDebugOptimizations
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+]
+.X86ReleaseConfig =
+[
+    Using(.X86BaseConfig)
+    .Config                 = 'Release'
+    .CompilerOptions        + .CompilerReleaseOptimizations
+                            + .IncludePaths
+    .PCHOptions             + .CompilerReleaseOptimizations
+                            + .IncludePaths
+    .LibrarianOptions       + .LibrarianReleaseOptimizations
+    .LinkerOptions          + .LinkerReleaseOptimizations
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+]
+
+
+// x64
+//------------------------------------------------------------------------------
+.X64BaseConfig =
+[
+    Using(.MSVCBaseConfig)
+    .ToolsBasePath          = '$VSBasePath$/VC/bin/x86_amd64'
+    .Compiler               = 'Compiler-x64'
+    .Librarian              = '$ToolsBasePath$/lib.exe'
+    .Linker                 = '$ToolsBasePath$/link.exe'
+    .CompilerOptions        + ' /GR /Oy-'
+                            + ' /D "_WIN32" /D "_WIN64" /D "WIN32" /D "_M_X64"'
+    .PCHOptions             + ' /D "_WIN32" /D "_WIN64" /D "WIN32" /D "_M_X64"'
+
+
+    .IncludePaths           = ' /I"$WindowsSDKBasePath$/Include/um"'
+                            + ' /I"$WindowsSDKBasePath$/Include/shared"'
+                            + ' /I"$WindowsSDKBasePath$/Include/winrt"'
+                            + ' /I"$WindowsSDKBasePath$/Include"'
+
+    .WindowsLibPath         = '$WindowsSDKBasePath$/Lib/win8/um'
+
+    .Platform               = 'x64'
+    .LinkerOptions          + ' /MACHINE:X64'
+                            + ' /MANIFESTUAC:"level=^'asInvoker^' uiAccess=^'false^'"'
+                            + ' /LIBPATH:"$VSBasePath$/VC/lib/amd64"'
+                            + ' "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib"'
+]
+.X64DebugConfig =
+[
+    Using(.X64BaseConfig)
+    .Config                 = 'Debug'
+    .CompilerOptions        + .CompilerDebugOptimizations
+                            + .IncludePaths
+    .PCHOptions             + .CompilerDebugOptimizations
+                            + .IncludePaths
+    .LibrarianOptions       + .LibrarianDebugOptimizations
+    .LinkerOptions          + .LinkerDebugOptimizations
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+]
+.X64ReleaseConfig =
+[
+    Using(.X64BaseConfig)
+    .Config                 = 'Release'
+    .CompilerOptions        + .CompilerReleaseOptimizations
+                            + .IncludePaths
+    .PCHOptions             + .CompilerReleaseOptimizations
+                            + .IncludePaths
+    .LibrarianOptions       + .LibrarianReleaseOptimizations
+    .LinkerOptions          + .LinkerReleaseOptimizations
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+]
+
+.MSVCResourceCompiler =
+[
+    .Compiler                   = '$WindowsSDKBasePath$/Bin/x86/RC.exe'
+    .CompilerOutputExtension    = '.res'
+    .CompilerOptions            = '/D "_SECURE_SCL=0" /D "_ITERATOR_DEBUG_LEVEL=0" /D "_HAS_ITERATOR_DEBUGGING=0" /D "STRSAFE_NO_DEPRECATE=1" /D "_CRT_SECURE_NO_DEPRECATE=1"'
+                                + ' /D "_CRT_NONSTDC_NO_DEPRECATE=1" /D "NDEBUG" /D "WIN32" /D "USE_DYNLOAD_IA" /D "USE_DYNLOAD_CORE" /D "USE_DYNLOAD_BASE"'
+                                + ' /D "CURL_STATICLIB" /D "_USING_V110_SDK71_" /l 0x0409 /nologo'
+                                + ' /I"$VSBasePath$/VC/atlmfc/include"'
+                                + ' /I"$WindowsSDKBasePath$/Include/um"'
+                                + ' /I"$WindowsSDKBasePath$/Include/shared"'
+]
+
+
+//------------------------------------------------------------------------------
+// VisualStudio Project Generation
+//------------------------------------------------------------------------------
+.ProjectCommon = 
+[
+    .ProjectBuildCommand    = 'cd ^$(SolutionDir) &amp; COC_regen_fbuild.bat -summary -nooutputbuffering -fixuperrorpaths ^$(ProjectName).^$(Configuration)-^$(Platform)'
+    .ProjectRebuildCommand  = 'cd ^$(SolutionDir) &amp; COC_regen_fbuild.bat -summary -nooutputbuffering -fixuperrorpaths -clean ^$(ProjectName).^$(Configuration)-^$(Platform)'
+
+    .OutputDirectory        = '$Out$'
+    .IntermediateDirectory  = '$Inter$'
+    .PlatformToolset        = 'v110'
+    .IncludeSearchPath      = '^$(SolutionDir)../..;./'
+    .X86Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;'
+    .X64Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;WIN64;'
+    .DebugDefines           = 'DEBUG;PROFILING_ENABLED'
+    .ReleaseDefines         = 'RELEASE'
+
+]
+
+.ProjectX86Debug            = [ Using(.ProjectCommon) .Config = 'Debug'   .Platform = 'Win32'   .PreprocessorDefinitions = .X86Defines + .DebugDefines ]
+.ProjectX86Release          = [ Using(.ProjectCommon) .Config = 'Release' .Platform = 'Win32'   .PreprocessorDefinitions = .X86Defines + .ReleaseDefines ]
+.ProjectX64Debug            = [ Using(.ProjectCommon) .Config = 'Debug'   .Platform = 'x64'     .PreprocessorDefinitions = .X64Defines + .DebugDefines ]
+.ProjectX64Release          = [ Using(.ProjectCommon) .Config = 'Release' .Platform = 'x64'     .PreprocessorDefinitions = .X64Defines + .ReleaseDefines ]
+
+.ProjectConfigs             = { .ProjectX86Debug,       .ProjectX86Release,
+                                .ProjectX64Debug,       .ProjectX64Release }
+
+// Useful Global Var
+//------------------------------------------------------------------------------
+.AdditionalModuleOptions    = ''
+.UnityAdditionalInputPaths  = ''
+
+#include "adjusted_configurations.bff"

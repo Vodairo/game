@@ -1,0 +1,40 @@
+//-------------------------------------------------------------------------------
+// Solution
+//-------------------------------------------------------------------------------
+.SolutionName           = "Game"
+
+#include "Build/_solution_path.bff"
+
+.PCHName                = 'StdAfx'
+
+.Out                    = '^$(ProjectDir)../../../Gen/Output/^$(SolutionName)/^$(Platform)/^$(Configuration)'
+.Inter                  = '^$(ProjectDir)../../../Gen/Intermediate/^$(SolutionName)/^$(Platform)/^$(Configuration)/^$(ProjectName)'
+
+#include "Build/FBuild_Configurations.bff"
+
+// Projects Location (Add Project name in .ProjectList)
+//-------------------------------------------------------------------------------
+.Origin         = 'Sources'
+.ProjectList    = { 'Core' }
+
+{
+    // Projects from CPP dir
+    //------------------------------------------------------------------------------
+    .Language       = 'CPP'
+    
+    //.PCHType    = [ .FileType = "$PCHName$"         .Pattern = "$PCHName$.*" ]
+    //.SourceType = [ .FileType = "Source Files"      .Pattern = "*.cpp" ]
+    //.HeaderType = [ .FileType = "Header Files"      .Pattern = "*.h" ]
+    //.BFFType    = [ .FileType = "FastBuild Files"   .Pattern = "*.bff" ]
+    //
+    //.ProjectFileTypes       = { .SourceType, .HeaderType, .PCHType, .BFFType }
+    
+    // Add Project ".bff" below
+    //------------------------------------------------------------------------------
+    #include "Sources/CPP/Core/Core.bff"
+}
+
+Alias('all')
+{
+    .Targets = .ProjectList
+}

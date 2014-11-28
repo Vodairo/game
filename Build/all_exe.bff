@@ -1,0 +1,72 @@
+//--------------------------------------------------------------------------
+// AoA Project compilation with resources
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------    
+
+#include "adjusted_configurations_aliases.bff"
+
+// Visual Studio Project Generation
+//--------------------------------------------------------------------------
+VCXProject('$ProjectName$-proj')
+{
+    .ProjectOutput          = '$ProjectPath$/$ProjectName$.vcxproj'
+    .ProjectInputPaths      = '$ProjectPath$'
+    .ProjectBasePath        = '$ProjectPath$'
+    .ProjectFileToExclude   = .ExcludeBoth
+
+    .LayoutDir              = '$ProjectPath$/Durango'
+    .ApplicationEnvironment = 'title'
+    .DefaultLanguage        = 'fr-fr'
+}
+
+ObjectList('$ProjectName$-Res')
+{
+    Using(.MSVCResourceCompiler)
+    .CompilerInputFiles     = '$ProjectPath$/$ResourceLocation$'
+    .CompilerOutputPath     = '$SolutionPath$/../../Gen/Intermediate/$SolutionName$/Resources/$ProjectName$/'
+    .CompilerOptions        + ' $ResourceOptions$'
+                            + ' /fo"%2" %1'
+}
+
+ForEach(.SpecificConfig in .SpecificConfigsWin)
+{
+    Using(.SpecificConfig)
+    #include "../CPP/LauncherPC/LauncherPC.All.Dependencies.bff"
+    
+    ObjectList('$ProjectName$-Obj-$Config$.$Platform$')
+    {
+        .CompilerOutputPath     = '$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/'
+        .CompilerInputPath      = '$ProjectPath$/'
+        .CompilerInputFiles     = '$ProjectPath$/../EugGame/main.cpp'
+        .CompilerOptions        + ' "%1"'
+                                + ' /Fd"$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/vc110.pdb"'
+                                + ' $AdditionalModuleOptions$'
+                                + ' $SpecificCompilerOptions$'
+    }        
+
+    // Executables
+    //--------------------------------------------------------------------------
+    Executable('$ProjectName$-Exe-$Config$.$Platform$')
+    {
+        .LinkerOutput           = '$SolutionPath$/../Bin/$Game$.$Config$.$Platform$.exe'
+        .LinkerOptions          + ' $SpecificLinkerOptions$'
+                                + ' /INCREMENTAL /DYNAMICBASE:NO /NXCOMPAT:NO'
+                                + ' $InternalLibrariesList$'
+                                + ' $ExternalLibrariesList$'
+                                + ' %1'
+                                + ' /OUT:"%2"'
+                                + ' /ManifestFile:"$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/$Game$.$Config$.$Platform$.exe.intermediate.manifest"'
+        .Libraries              = { '$ProjectName$-Res',
+                                    '$ProjectName$-Obj-$Config$.$Platform$' }
+                                + .LibrariesListToBeBuilt
+    }
+    
+    Alias('$ProjectName$.$Config$-$Platform$') { .Targets = { '$ProjectName$-Exe-$Config$.$Platform$' }}
+}
+
+// All
+//--------------------------------------------------------------------------
+Alias('$ProjectName$')
+{
+    .Targets = { '$ProjectName$-proj' }
+}
