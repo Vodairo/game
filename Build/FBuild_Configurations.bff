@@ -222,11 +222,10 @@ Compiler('Compiler-x64')
     .ProjectBuildCommand    = 'cd ^$(SolutionDir) &amp; Game_regen.bat -summary -nooutputbuffering -fixuperrorpaths ^$(ProjectName).^$(Configuration)-^$(Platform)'
     .ProjectRebuildCommand  = 'cd ^$(SolutionDir) &amp; Game_regen.bat -summary -nooutputbuffering -fixuperrorpaths -clean ^$(ProjectName).^$(Configuration)-^$(Platform)'
 
-    .Output                 = '^$(SolutionDir)../Bin/$SolutionName$.^$(Configuration).^$(Platform).exe'
     .OutputDirectory        = '$Out$'
     .IntermediateDirectory  = '$Inter$'
     .PlatformToolset        = 'v110'
-    .IncludeSearchPath      = '^$(SolutionDir)..;./;^$(SolutionDir)/Libraries/^$(Platform)'
+    .IncludeSearchPath      = '^$(SolutionDir)..;./;^$(SolutionDir)Libraries/^$(Platform)/Includes'
     .X86Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;'
     .X64Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;WIN64;'
     .DebugDefines           = 'DEBUG;PROFILING_ENABLED'

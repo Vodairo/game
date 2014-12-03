@@ -13,6 +13,8 @@ VCXProject('$ProjectName$-proj')
     .ProjectInputPaths      = '$ProjectPath$'
     .ProjectBasePath        = '$ProjectPath$'
     .ProjectFileToExclude   = .ExcludeBoth
+
+    .Output                 = '^$(SolutionDir)../Bin/$SolutionName$.^$(Configuration).^$(Platform).exe'
 }
 
 ForEach(.SpecificConfig in .SpecificConfigsWin)
