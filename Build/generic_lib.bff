@@ -13,10 +13,6 @@ VCXProject('$ProjectName$-proj')
     .ProjectInputPaths      = '$ProjectPath$'
     .ProjectBasePath        = '$ProjectPath$'
     .ProjectFileToExclude   = .ExcludeBoth
-
-    .LayoutDir              = '$ProjectPath$/Durango'
-    .ApplicationEnvironment = 'title'
-    .DefaultLanguage        = 'fr-fr'
 }
 
 ForEach(.SpecificConfig in .SpecificConfigsWin)
@@ -27,26 +23,17 @@ ForEach(.SpecificConfig in .SpecificConfigsWin)
     //--------------------------------------------------------------------------
     Library('$ProjectName$-Lib-$Config$.$Platform$')
     {
-        .PCHInputFile           = '$ProjectPath$/$PCHName$.cpp'
-        .PCHOutputFile          = '$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/$ProjectName$.$Config$.$Platform$.pch'
-        .PCHOptions             + ' /Yc"$PCHName$.h" "%1"'
-                                + ' /Fd"$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/vc110.pdb"'
-                                + ' /I"$ProjectPath$/"'
-                                + ' /I"$ProjectPath$/Headers"'
-                                + ' $AdditionalModuleOptions$'
-                                + ' $SpecificCompilerOptions$'
-
         .CompilerInputPath      = '$ProjectPath$/'
-        .CompilerOptions        + ' /Yu"$PCHName$.h" /Fp"$PCHOutputFile$" "%1"'
-                                + ' /Fd"$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/vc110.pdb"'
+        .CompilerOptions        + ' "%1"'
+                                + ' /Fd"$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/vc110.pdb"'
                                 + ' /I"$ProjectPath$/"'
                                 + ' /I"$ProjectPath$/Headers"'
                                 + ' $AdditionalModuleOptions$'
                                 + ' $SpecificCompilerOptions$'
-        .CompilerOutputPath     = '$SolutionPath$/../../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/'
+        .CompilerOutputPath     = '$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/'
         
         .LibrarianOptions       + ' $SpecificLibrarianOptions$'
-        .LibrarianOutput        = '$SolutionPath$/../../Gen/output/$SolutionName$/$Platform$/$Config$/$ProjectName$.$Config$.$Platform$.lib'
+        .LibrarianOutput        = '$SolutionPath$/../Gen/Output/$SolutionName$/$Platform$/$Config$/$ProjectName$.$Config$.$Platform$.lib'
     }
     
     Alias('$ProjectName$.$Config$-$Platform$') { .Targets = { '$ProjectName$-Lib-$Config$.$Platform$' }}

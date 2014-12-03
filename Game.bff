@@ -7,15 +7,15 @@
 
 .PCHName                = 'StdAfx'
 
-.Out                    = '^$(ProjectDir)../../../Gen/Output/^$(SolutionName)/^$(Platform)/^$(Configuration)'
-.Inter                  = '^$(ProjectDir)../../../Gen/Intermediate/^$(SolutionName)/^$(Platform)/^$(Configuration)/^$(ProjectName)'
+.Out                    = '^$(ProjectDir)../../../../Gen/Output/^$(SolutionName)/^$(Platform)/^$(Configuration)'
+.Inter                  = '^$(ProjectDir)../../../../Gen/Intermediate/^$(SolutionName)/^$(Platform)/^$(Configuration)/^$(ProjectName)'
 
 #include "Build/FBuild_Configurations.bff"
 
 // Projects Location (Add Project name in .ProjectList)
 //-------------------------------------------------------------------------------
 .Origin         = 'Sources'
-.ProjectList    = { 'Core' }
+.ProjectList    = { 'Core', 'Game' }
 
 {
     // Projects from CPP dir
@@ -32,6 +32,8 @@
     // Add Project ".bff" below
     //------------------------------------------------------------------------------
     #include "Sources/CPP/Core/Core.bff"
+    // Main
+    #include "Sources/CPP/Game/Game.bff"
 }
 
 Alias('all')

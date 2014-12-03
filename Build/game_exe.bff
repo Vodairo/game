@@ -1,0 +1,57 @@
+//--------------------------------------------------------------------------
+// AoA Project compilation with resources
+//--------------------------------------------------------------------------
+//--------------------------------------------------------------------------    
+
+#include "adjusted_configurations_aliases.bff"
+
+// Visual Studio Project Generation
+//--------------------------------------------------------------------------
+VCXProject('$ProjectName$-proj')
+{
+    .ProjectOutput          = '$ProjectPath$/$ProjectName$.vcxproj'
+    .ProjectInputPaths      = '$ProjectPath$'
+    .ProjectBasePath        = '$ProjectPath$'
+    .ProjectFileToExclude   = .ExcludeBoth
+}
+
+ForEach(.SpecificConfig in .SpecificConfigsWin)
+{
+    Using(.SpecificConfig)
+    #include "../Sources/CPP/Game/Game.Dependencies.bff"
+    
+    ObjectList('$ProjectName$-Obj-$Config$.$Platform$')
+    {
+        .CompilerOutputPath     = '$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/'
+        .CompilerInputPath      = '$ProjectPath$/'
+        .CompilerOptions        + ' "%1"'
+                                + ' /Fd"$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/vc110.pdb"'
+                                + ' $AdditionalModuleOptions$'
+                                + ' $SpecificCompilerOptions$'
+    }        
+
+    // Executables
+    //--------------------------------------------------------------------------
+    Executable('$ProjectName$-Exe-$Config$.$Platform$')
+    {
+        .LinkerOutput           = '$SolutionPath$/../Bin/$Game$.$Config$.$Platform$.exe'
+        .LinkerOptions          + ' $SpecificLinkerOptions$'
+                                + ' /INCREMENTAL /DYNAMICBASE:NO /NXCOMPAT:NO'
+                                + ' $InternalLibrariesList$'
+                                + ' $ExternalLibrariesList$'
+                                + ' %1'
+                                + ' /OUT:"%2"'
+                                + ' /ManifestFile:"$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/$Game$.$Config$.$Platform$.exe.intermediate.manifest"'
+        .Libraries              = { '$ProjectName$-Obj-$Config$.$Platform$' }
+                                + .LibrariesListToBeBuilt
+    }
+    
+    Alias('$ProjectName$.$Config$-$Platform$') { .Targets = { '$ProjectName$-Exe-$Config$.$Platform$' }}
+}
+
+// All
+//--------------------------------------------------------------------------
+Alias('$ProjectName$')
+{
+    .Targets = { '$ProjectName$-proj' }
+}

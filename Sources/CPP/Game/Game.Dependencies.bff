@@ -1,0 +1,8 @@
+.LibrariesListToBeBuilt 	=
+{
+}
+
+.InternalLibrariesList 		= ' '
+
+.ExternalLibrariesList 		= ' glfw-3.0.4/glfw3.lib'
+							+ ' OpenGL32.lib'

@@ -26,7 +26,7 @@ Compiler('Compiler-x86')
                     '$Root$/c1xx.dll',
                     '$Root$/c1xxast.dll',
                     '$Root$/c2.dll',
-                    '$Root$/1033/clui.dll',
+                    '$Root$/1036/clui.dll',
                     '$VSBasePath$/VC/redist/x86/Microsoft.VC110.CRT/msvcp110.dll',
                     '$VSBasePath$/VC/redist/x86/Microsoft.VC110.CRT/msvcr110.dll',
                     '$VSBasePath$/VC/redist/x86/Microsoft.VC110.CRT/vccorlib110.dll'
@@ -43,7 +43,7 @@ Compiler('Compiler-x64')
                     '$Root$/amd64/c1xx.dll',
                     '$Root$/amd64/c1xxast.dll',
                     '$Root$/amd64/c2.dll',
-                    '$Root$/amd64/1033/clui.dll',
+                    '$Root$/amd64/1036/clui.dll',
                     '$Root$/amd64/msobj110.dll',
                     '$Root$/amd64/mspdb110.dll',
                     '$Root$/amd64/mspdbsrv.exe',
@@ -60,7 +60,7 @@ Compiler('Compiler-x64')
 //------------------------------------------------------------------------------
 .MSVCBaseConfig =
 [
-    .CompilerOptions        = '/nologo /c /W3 /WX- /Zi /Gm- /errorReport:prompt /GS- /GF /Gd /openmp- /Oy- /EHsc /bigobj'
+    .CompilerOptions        = '/nologo /c /W3 /WX- /Zi /Gm- /errorReport:prompt /GS- /GF /Gd /openmp- /Oy- /EHsc'
                             + ' /Zc:forScope'
                             + ' /Zc:wchar_t'
                             + ' /fp:fast'
@@ -69,7 +69,7 @@ Compiler('Compiler-x64')
                             + ' /Fp"%2" /Fo"%3"'
     .CompilerOptions        + ' /Fo"%2"'
     .LibrarianOptions       = '/nologo /OUT:"%2" "%1" /SUBSYSTEM:WINDOWS'
-    .LinkerOptions          = '/nologo /MANIFEST /LARGEADDRESSAWARE /SUBSYSTEM:WINDOWS /ERRORREPORT:PROMPT /TLBID:1'
+    .LinkerOptions          = '/nologo /MANIFEST /LARGEADDRESSAWARE /SUBSYSTEM:CONSOLE /ERRORREPORT:PROMPT /TLBID:1'
                             + ' /IGNORE:4001'
 
     // Optimizations
@@ -113,6 +113,7 @@ Compiler('Compiler-x64')
     .LinkerOptions          + ' /MACHINE:X86 /MANIFESTUAC:"level=^'asInvoker^' uiAccess=^'false^'"'
                             + ' /LIBPATH:"$WindowsLibPath$/x86"'
                             + ' /LIBPATH:"$VSBasePath$/VC/lib"'
+                            + ' /LIBPATH:"$SolutionPath$/Libraries/Win32"'
                             + ' "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib"'
                             + ' /SAFESEH'
 ]
@@ -126,8 +127,8 @@ Compiler('Compiler-x64')
                             + .IncludePaths
     .LibrarianOptions       + .LibrarianDebugOptimizations
     .LinkerOptions          + .LinkerDebugOptimizations
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/$SolutionName$/$Platform$/$Config$"'
 ]
 .X86ReleaseConfig =
 [
@@ -139,8 +140,8 @@ Compiler('Compiler-x64')
                             + .IncludePaths
     .LibrarianOptions       + .LibrarianReleaseOptimizations
     .LinkerOptions          + .LinkerReleaseOptimizations
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/$SolutionName$/$Platform$/$Config$"'
 ]
 
 
@@ -168,7 +169,9 @@ Compiler('Compiler-x64')
     .Platform               = 'x64'
     .LinkerOptions          + ' /MACHINE:X64'
                             + ' /MANIFESTUAC:"level=^'asInvoker^' uiAccess=^'false^'"'
+                            + ' /LIBPATH:"$WindowsLibPath$/x86"'
                             + ' /LIBPATH:"$VSBasePath$/VC/lib/amd64"'
+                            + ' /LIBPATH:"$SolutionPath$/Libraries/x64"'
                             + ' "kernel32.lib" "user32.lib" "gdi32.lib" "winspool.lib" "comdlg32.lib" "advapi32.lib" "shell32.lib" "ole32.lib" "oleaut32.lib" "uuid.lib" "odbc32.lib" "odbccp32.lib"'
 ]
 .X64DebugConfig =
@@ -181,8 +184,8 @@ Compiler('Compiler-x64')
                             + .IncludePaths
     .LibrarianOptions       + .LibrarianDebugOptimizations
     .LinkerOptions          + .LinkerDebugOptimizations
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/$SolutionName$/$Platform$/$Config$"'
 ]
 .X64ReleaseConfig =
 [
@@ -194,8 +197,8 @@ Compiler('Compiler-x64')
                             + .IncludePaths
     .LibrarianOptions       + .LibrarianReleaseOptimizations
     .LinkerOptions          + .LinkerReleaseOptimizations
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/External/$Platform$/$Config$"'
-                            + ' /LIBPATH:"$SolutionPath$/Gen/Output/$SolutionName$/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/External/$Platform$/$Config$"'
+                            + ' /LIBPATH:"$SolutionPath$/../Gen/Output/$SolutionName$/$Platform$/$Config$"'
 ]
 
 .MSVCResourceCompiler =
@@ -216,13 +219,14 @@ Compiler('Compiler-x64')
 //------------------------------------------------------------------------------
 .ProjectCommon = 
 [
-    .ProjectBuildCommand    = 'cd ^$(SolutionDir) &amp; COC_regen_fbuild.bat -summary -nooutputbuffering -fixuperrorpaths ^$(ProjectName).^$(Configuration)-^$(Platform)'
-    .ProjectRebuildCommand  = 'cd ^$(SolutionDir) &amp; COC_regen_fbuild.bat -summary -nooutputbuffering -fixuperrorpaths -clean ^$(ProjectName).^$(Configuration)-^$(Platform)'
+    .ProjectBuildCommand    = 'cd ^$(SolutionDir) &amp; Game_regen.bat -summary -nooutputbuffering -fixuperrorpaths ^$(ProjectName).^$(Configuration)-^$(Platform)'
+    .ProjectRebuildCommand  = 'cd ^$(SolutionDir) &amp; Game_regen.bat -summary -nooutputbuffering -fixuperrorpaths -clean ^$(ProjectName).^$(Configuration)-^$(Platform)'
 
+    .Output                 = '^$(SolutionDir)../Bin/$SolutionName$.^$(Configuration).^$(Platform).exe'
     .OutputDirectory        = '$Out$'
     .IntermediateDirectory  = '$Inter$'
     .PlatformToolset        = 'v110'
-    .IncludeSearchPath      = '^$(SolutionDir)../..;./'
+    .IncludeSearchPath      = '^$(SolutionDir)..;./;^$(SolutionDir)/Libraries/^$(Platform)'
     .X86Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;'
     .X64Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;WIN64;'
     .DebugDefines           = 'DEBUG;PROFILING_ENABLED'
