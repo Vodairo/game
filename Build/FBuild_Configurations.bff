@@ -60,7 +60,7 @@ Compiler('Compiler-x64')
 //------------------------------------------------------------------------------
 .MSVCBaseConfig =
 [
-    .CompilerOptions        = '/nologo /c /W3 /WX- /Zi /Gm- /errorReport:prompt /GS- /GF /Gd /openmp- /Oy- /EHsc'
+    .CompilerOptions        = '/nologo /c /W3 /WX- /Z7 /Gm- /errorReport:prompt /GS- /GF /Gd /openmp- /Oy- /EHsc'
                             + ' /Zc:forScope'
                             + ' /Zc:wchar_t'
                             + ' /fp:fast'
@@ -78,7 +78,7 @@ Compiler('Compiler-x64')
     .LibrarianDebugOptimizations    = ''
     .LibrarianReleaseOptimizations  = ''
     .LinkerDebugOptimizations       = ' /DEBUG'
-    .LinkerReleaseOptimizations     = ''
+    .LinkerReleaseOptimizations     = ' /DEBUG'
 
     .BaseIncludePaths       = ' /I"$VSBasePath$/VC/include"'
                             + ' /I"$SolutionPath$/External"'
@@ -106,6 +106,7 @@ Compiler('Compiler-x64')
                             + ' /I"$WindowsSDKBasePath$/Include/shared"'
                             + ' /I"$WindowsSDKBasePath$/Include/winrt"'
                             + ' /I"$WindowsSDKBasePath$/Include"'
+                            + ' /I"$SolutionPath$/Libraries/Win32/Includes"'
 
     .WindowsLibPath         = '$WindowsSDKBasePath$/Lib/win8/um'
 
@@ -163,6 +164,7 @@ Compiler('Compiler-x64')
                             + ' /I"$WindowsSDKBasePath$/Include/shared"'
                             + ' /I"$WindowsSDKBasePath$/Include/winrt"'
                             + ' /I"$WindowsSDKBasePath$/Include"'
+                            + ' /I"$SolutionPath$/Libraries/x64/Includes"'
 
     .WindowsLibPath         = '$WindowsSDKBasePath$/Lib/win8/um'
 

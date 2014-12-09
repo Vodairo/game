@@ -1,0 +1,13 @@
+{
+    .ProjectName                = 'GameEngine'
+    .ProjectPath                = '$SolutionPath$/$Origin$/$Language$/$ProjectName$'
+    .Dependencies               =
+    {
+
+    }
+
+    .ExcludeBoth                = { 'Unity1.cpp' }
+
+
+    #include "../../../Build/generic_lib.bff"
+}

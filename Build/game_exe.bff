@@ -27,7 +27,7 @@ ForEach(.SpecificConfig in .SpecificConfigsWin)
         .CompilerOutputPath     = '$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/'
         .CompilerInputPath      = '$ProjectPath$/'
         .CompilerOptions        + ' "%1"'
-                                + ' /Fd"$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/vc110.pdb"'
+                                + ' /Fd"$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/$Game$.$Config$.$Platform$.pdb"'
                                 + ' $AdditionalModuleOptions$'
                                 + ' $SpecificCompilerOptions$'
     }        
@@ -44,6 +44,7 @@ ForEach(.SpecificConfig in .SpecificConfigsWin)
                                 + ' %1'
                                 + ' /OUT:"%2"'
                                 + ' /ManifestFile:"$SolutionPath$/../Gen/Intermediate/$SolutionName$/$Platform$/$Config$/$ProjectName$/$Game$.$Config$.$Platform$.exe.intermediate.manifest"'
+                                + ' /PDB:$SolutionPath$/../Bin/$Game$.$Config$.$Platform$.pdb'
         .Libraries              = { '$ProjectName$-Obj-$Config$.$Platform$' }
                                 + .LibrariesListToBeBuilt
     }

@@ -15,7 +15,7 @@
 // Projects Location (Add Project name in .ProjectList)
 //-------------------------------------------------------------------------------
 .Origin         = 'Sources'
-.ProjectList    = { 'Core', 'Game' }
+.ProjectList    = { 'Core', 'Game', 'GameEngine' }
 
 {
     // Projects from CPP dir
@@ -32,6 +32,7 @@
     // Add Project ".bff" below
     //------------------------------------------------------------------------------
     #include "Sources/CPP/Core/Core.bff"
+    #include "Sources/CPP/GameEngine/GameEngine.bff"
     // Main
     #include "Sources/CPP/Game/Game.bff"
 }

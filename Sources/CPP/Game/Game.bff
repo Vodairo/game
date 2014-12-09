@@ -6,36 +6,6 @@
 
     }
 
-    .SpecificX86DebugConfig =
-    [
-        Using(.X86DebugConfig)
-        Using(.SpecificX86BaseConfig)
-
-        .SpecificCompilerOptions    + ' /I"$SolutionPath$/Libraries/$Platform$/glfw-3.0.4/Includes"'
-    ]
-    .SpecificX86ReleaseConfig =
-    [
-        Using(.X86ReleaseConfig)
-        Using(.SpecificX86BaseConfig)
-
-        .SpecificCompilerOptions    + ' /I"$SolutionPath$/Libraries/$Platform$/glfw-3.0.4/Includes"'
-    ]
-
-    .SpecificX64DebugConfig =
-    [
-        Using(.X64DebugConfig)
-        Using(.SpecificX64BaseConfig)
-
-        .SpecificCompilerOptions    + ' /I"$SolutionPath$/Libraries/$Platform$/glfw-3.0.4/Includes"'
-    ]
-    .SpecificX64ReleaseConfig =
-    [
-        Using(.X64ReleaseConfig)
-        Using(.SpecificX64BaseConfig)
-
-        .SpecificCompilerOptions    + ' /I"$SolutionPath$/Libraries/$Platform$/glfw-3.0.4/Includes"'
-    ]
-
     .ExcludeBoth                = { 'Unity1.cpp' }
 
     {
