@@ -227,7 +227,7 @@ Compiler('Compiler-x64')
     .OutputDirectory        = '$Out$'
     .IntermediateDirectory  = '$Inter$'
     .PlatformToolset        = 'v110'
-    .IncludeSearchPath      = '^$(SolutionDir)..;./;^$(SolutionDir)Libraries/^$(Platform)/Includes'
+    .IncludeSearchPath      = '^$(SolutionDir)..;./;^$(SolutionDir)Libraries/^$(Platform)/Includes;^$(SolutionDir)/Sources/CPP'
     .X86Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;'
     .X64Defines             = 'WIN32_LEAN_AND_MEAN;_WIN32;__WINDOWS__;WIN32;WIN64;'
     .DebugDefines           = 'DEBUG;PROFILING_ENABLED'

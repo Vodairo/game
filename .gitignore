@@ -6,4 +6,5 @@
 *.vcxproj.user
 *.log
 *.lastbuildstate
+*.opensdf
 Gen/
