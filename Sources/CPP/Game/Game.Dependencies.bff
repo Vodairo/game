@@ -1,6 +1,7 @@
 .LibrariesListToBeBuilt 	=
 {
-    "GameEngine-Lib-$Config$.$Platform$"
+    "GameEngine-Lib-$Config$.$Platform$",
+    "Core-Lib-$Config$.$Platform$"
 }
 
 .InternalLibrariesList 		= ' '
