@@ -8,16 +8,21 @@ namespace Game {
 class Window
 {
 public:
-	Window();
-	~Window();
+	static Window* Instance();
 
-    void Load();
-    bool IsOpen() const;
+	bool IsOpen() const;
 
 	GLFWwindow* GetWindow() const { return FWindow; };
 
 private:
-    GLFWwindow* FWindow;
+	Window();
+	~Window();
+
+	void Load();
+
+	static Window* FWindowInstance;
+
+	GLFWwindow* FWindow;
 	bool FLoaded;
 };
 

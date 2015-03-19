@@ -6,6 +6,17 @@
 
 namespace Game {
 
+Window* Window::Instance()
+{
+	if (FWindowInstance == nullptr)
+	{
+		FWindowInstance = new Window();
+		FWindowInstance->Load();
+	}
+
+	return FWindowInstance;
+}
+
 Window::Window()
 	: FLoaded(false)
 {

@@ -33,7 +33,7 @@ private:
 	KeyboardHandler();
 	~KeyboardHandler();
 
-	static KeyboardHandler* FKeyboardHandler;
+	static KeyboardHandler* FKeyboardHandlerInstance;
 
 	std::list<KeyboardStates>* FKeyboardStack;
 };

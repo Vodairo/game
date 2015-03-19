@@ -10,16 +10,13 @@ int main(void)
 {
 	FreeConsole();
 
-	Game::Window* game = new Game::Window();
+	float ratio;
+	int width, height;
+	glfwGetFramebufferSize(Game::Window::Instance()->GetWindow(), &width, &height);
+	ratio = width / (float) height;
 
-	game->Load();
-
-    while (game->IsOpen())
+	while (Game::Window::Instance()->IsOpen())
     {
-        float ratio;
-        int width, height;
-		glfwGetFramebufferSize(game->GetWindow(), &width, &height);
-        ratio = width / (float) height;
         glViewport(0, 0, width, height);
         glClear(GL_COLOR_BUFFER_BIT);
         glMatrixMode(GL_PROJECTION);
@@ -27,8 +24,9 @@ int main(void)
         glOrtho(-ratio, ratio, -1.f, 1.f, 1.f, -1.f);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
-		glfwSwapBuffers(game->GetWindow());
+		glfwSwapBuffers(Game::Window::Instance()->GetWindow());
         glfwPollEvents();
     }
+
     exit(EXIT_SUCCESS);
 }
