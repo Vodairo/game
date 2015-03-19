@@ -4,6 +4,7 @@
 #include "GLFW/glfw3.h"
 
 #include <list>
+#include <map>
 
 namespace Game { namespace Keyboard {
 
@@ -13,10 +14,12 @@ enum KeyboardStates {
 	DOWN,
 	LEFT,
 	RIGHT,
-	ECHAP,
-	SPACE,
+	JUMP,
+	ESCAPE,
 	ENTER
 };
+
+void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
 
 class KeyboardHandler {
 public:
@@ -32,7 +35,7 @@ private:
 
 	static KeyboardHandler* FKeyboardHandler;
 
-	std::list<KeyboardStates> FKeyboardStack;
+	std::list<KeyboardStates>* FKeyboardStack;
 };
 
 }}
