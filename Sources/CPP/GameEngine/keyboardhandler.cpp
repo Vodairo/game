@@ -30,8 +30,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 
 KeyboardHandler* KeyboardHandler::Instance()
 {
+	static KeyboardHandler* FKeyboardHandlerInstance = nullptr;
+
 	if (FKeyboardHandlerInstance == nullptr)
 		FKeyboardHandlerInstance = new KeyboardHandler();
+
 	return FKeyboardHandlerInstance;
 }
 

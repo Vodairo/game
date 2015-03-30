@@ -8,6 +8,8 @@ namespace Game {
 
 Window* Window::Instance()
 {
+	static Window* FWindowInstance = nullptr;
+
 	if (FWindowInstance == nullptr)
 	{
 		FWindowInstance = new Window();

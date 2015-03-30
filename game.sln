@@ -9,6 +9,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Sources\CPP\Game\Ga
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngine", "Sources\CPP\GameEngine\GameEngine.vcxproj", "{4291EEB6-6C94-4F93-BC2A-7F5284B7D434}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{9DEBEB1C-F278-405A-8D26-933F92B14A3D}"
+	ProjectSection(SolutionItems) = preProject
+		Build\_solution_path.bff = Build\_solution_path.bff
+		Build\adjusted_configurations.bff = Build\adjusted_configurations.bff
+		Build\adjusted_configurations_aliases.bff = Build\adjusted_configurations_aliases.bff
+		Build\FBuild_Configurations.bff = Build\FBuild_Configurations.bff
+		Build\game_exe.bff = Build\game_exe.bff
+		Build\generic_dll.bff = Build\generic_dll.bff
+		Build\generic_exe_resources.bff = Build\generic_exe_resources.bff
+		Build\generic_lib.bff = Build\generic_lib.bff
+		Build\generic_lib_specific_files.bff = Build\generic_lib_specific_files.bff
+		Build\generic_lib_unity.bff = Build\generic_lib_unity.bff
+		Build\generic_lib_unity_additional_paths.bff = Build\generic_lib_unity_additional_paths.bff
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32

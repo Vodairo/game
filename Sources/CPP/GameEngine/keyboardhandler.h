@@ -4,7 +4,6 @@
 #include "GLFW/glfw3.h"
 
 #include <list>
-#include <map>
 
 namespace Game { namespace Keyboard {
 
@@ -24,6 +23,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 class KeyboardHandler {
 public:
 	static KeyboardHandler* Instance();
+	~KeyboardHandler();
 
 	KeyboardStates PopKeyboardStack();
 	void PushKeyboardStack(KeyboardStates state);
@@ -31,9 +31,6 @@ public:
 
 private:
 	KeyboardHandler();
-	~KeyboardHandler();
-
-	static KeyboardHandler* FKeyboardHandlerInstance;
 
 	std::list<KeyboardStates>* FKeyboardStack;
 };

@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-int main(void)
+int main(int argc, char* argv[])
 {
 	FreeConsole();
 

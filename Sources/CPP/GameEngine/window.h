@@ -9,6 +9,7 @@ class Window
 {
 public:
 	static Window* Instance();
+	~Window();
 
 	bool IsOpen() const;
 
@@ -16,11 +17,7 @@ public:
 
 private:
 	Window();
-	~Window();
-
 	void Load();
-
-	static Window* FWindowInstance;
 
 	GLFWwindow* FWindow;
 	bool FLoaded;
